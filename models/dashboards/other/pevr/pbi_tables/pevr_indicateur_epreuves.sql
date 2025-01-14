@@ -120,26 +120,49 @@ with
             ecart_cible,
             cible
         from agg
+    ),id_filtre as (
+        select
+            id_indicateur,
+            description_indicateur,
+            annee_scolaire,
+            nb_resultat,
+            taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
+            ecart_cible,  -- Même affaire.
+            cible,
+            {{
+                dbt_utils.generate_surrogate_key(
+                    [
+                        "ecole",
+                        "plan_interv_ehdaa",
+                        "genre",
+                        "population",
+                        "classification",
+                        "distribution",
+                    ]
+                )
+            }} as id_filtre
+        from _coalesce
+    ), val_dep as (
+        select
+            id_indicateur,
+            taux_maitrise as valeur_depart,
+            id_filtre
+        from id_filtre
+        where annee_scolaire = '2022 - 2023'
     )
 
 select
-    id_indicateur,
-    description_indicateur,
-    annee_scolaire,
-    nb_resultat,
-    taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
-    ecart_cible,  -- Même affaire.
-    cible,
-    {{
-        dbt_utils.generate_surrogate_key(
-            [
-                "ecole",
-                "plan_interv_ehdaa",
-                "genre",
-                "population",
-                "classification",
-                "distribution",
-            ]
-        )
-    }} as id_filtre
-from _coalesce
+    id.id_indicateur,
+    id.description_indicateur,
+    id.annee_scolaire,
+    id.nb_resultat,
+    id.taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
+    id.ecart_cible,  -- Même affaire.
+    id.cible,
+    valeur_depart,
+    id.id_filtre
+from id_filtre as id
+left join val_dep as vd
+    on id.id_indicateur = vd.id_indicateur 
+    and  id.id_filtre = vd.id_filtre
+
