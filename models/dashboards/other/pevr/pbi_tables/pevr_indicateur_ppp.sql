@@ -75,7 +75,6 @@ with
             on src.id_indicateur = ind.id_indicateur_cdpvd
     ),
 
-
     ppp as (
         select
             annee_scolaire,
@@ -126,48 +125,44 @@ with
 
     id_filtre as (
         select
-    id_indicateur,
-    description_indicateur,
-    annee_scolaire,
-    nb_ppp,
-    taux_ppp,
-    ecart_cible,
-    cible,
-        {{
-            dbt_utils.generate_surrogate_key(
-                [
-                    "ecole",
-                    "plan_interv_ehdaa",
-                    "genre",
-                    "population",
-                    "classification",
-                    "distribution",
-                ]
-            )
-        }} as id_filtre
-    from _coalesce
+            id_indicateur,
+            description_indicateur,
+            annee_scolaire,
+            nb_ppp,
+            taux_ppp,
+            ecart_cible,
+            cible,
+            {{
+                dbt_utils.generate_surrogate_key(
+                    [
+                        "ecole",
+                        "plan_interv_ehdaa",
+                        "genre",
+                        "population",
+                        "classification",
+                        "distribution",
+                    ]
+                )
+            }} as id_filtre
+        from _coalesce
     ),
 
     val_dep as (
-        select
-            id_indicateur,
-            taux_ppp as valeur_depart,
-            id_filtre
+        select id_indicateur, taux_ppp as valeur_depart, id_filtre
         from id_filtre
         where annee_scolaire = '2022 - 2023'
     )
 
-    select
-        id.id_indicateur,
-        id.description_indicateur,
-        id.annee_scolaire,
-        id.taux_ppp,
-        id.nb_ppp,
-        id.ecart_cible,
-        id.cible,
-        valeur_depart,
-        id.id_filtre
-    from id_filtre as id
-    left join val_dep as vd
-        on id.id_indicateur = vd.id_indicateur 
-        and  id.id_filtre = vd.id_filtre
+select
+    id.id_indicateur,
+    id.description_indicateur,
+    id.annee_scolaire,
+    id.taux_ppp,
+    id.nb_ppp,
+    id.ecart_cible,
+    id.cible,
+    valeur_depart,
+    id.id_filtre
+from id_filtre as id
+left join
+    val_dep as vd on id.id_indicateur = vd.id_indicateur and id.id_filtre = vd.id_filtre
