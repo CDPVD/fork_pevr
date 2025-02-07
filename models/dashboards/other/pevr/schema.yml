@@ -23,7 +23,7 @@ models:
             - id_indicateur_cdpvd
             - id_indicateur_css
 
-  - name: pevr_dim_previsionnelle
+  - name: pevr_dim_cibles_annuelles
     description: >
       Table de dimension qui mappe les données prévisionnelles.
       La table est constuite en unionant la dimension commune (core/seeds/pevr/cibles_indicateurs_annuelles_pevr_cdpvd.csv) et la dimension personalisée (cssss/seeds/pevr/custom_cibles_indicateurs_annuelles_pevr_cdpvd.csv).

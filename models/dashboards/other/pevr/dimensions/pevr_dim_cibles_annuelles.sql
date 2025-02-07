@@ -26,7 +26,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         * located in the schema 'dashboard_pevr_seeds'
 #}
 
-{{ config(alias="pevr_dim_previsionnelle") }}
+{{ config(alias="pevr_dim_cibles_annuelles") }}
 
 {%- set source_relation = adapter.get_relation(
     database=target.database,
@@ -58,7 +58,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     {% if execute %}
         {{
             log(
-                "The seed '*_dashboard_pevr_seeds.custom_cibles_indicateurs_annuelles_pevr_cdpvd' DOES NOT exists. The 'pevr_dim_previsionnelle' table will be defaulted to 'cibles_indicateurs_annuelles_pevr_cdpvd'.",
+                "The seed '*_dashboard_pevr_seeds.custom_cibles_indicateurs_annuelles_pevr_cdpvd' DOES NOT exists. The 'pevr_dim_cibles_annuelles' table will be defaulted to 'cibles_indicateurs_annuelles_pevr_cdpvd'.",
                 true,
             )
         }}
