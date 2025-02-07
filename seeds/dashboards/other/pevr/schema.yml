@@ -97,3 +97,71 @@ seeds:
         annee_scolaire: nvarchar(max)
         taux: decimal(5,3)
         cible: float
+
+  - name: cibles_indicateurs_annuelles_pevr_cdpvd
+    description: mapping obligatoire des données de départs et des données prévionnelles.
+    columns:
+      - name: objectif
+        description: L'objectif de l'indicateur, en référence au PEVR
+        tests:
+          - not_null
+      - name: id_indicateur
+        description: L'identification unique du PEVR
+        tests:
+          - not_null
+      - name: annee_scolaire
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: cible
+        description: Pourcentage ciblé
+        tests:
+          - not_null
+      - name: valeur_depart
+        description: Valeur de départ de l'année en question
+        tests:
+          - not_null
+    config:
+      tags:
+        - pevr
+      schema: dashboard_pevr_seeds
+      column_types:
+        objectif: nvarchar(max)
+        id_indicateur: nvarchar(max)
+        annee_scolaire: nvarchar(max)
+        cible: float
+        valeur_depart: decimal(5,3)
+
+  - name: custom_cibles_indicateurs_annuelles_pevr_cdpvd
+    description: mapping obligatoire des données de départs et des données prévionnelles.
+    columns:
+      - name: objectif
+        description: L'objectif de l'indicateur, en référence au PEVR
+        tests:
+          - not_null
+      - name: id_indicateur
+        description: L'identification unique du PEVR
+        tests:
+          - not_null
+      - name: annee_scolaire
+        description: L'année scolaire
+        tests:
+          - not_null
+      - name: cible
+        description: Pourcentage ciblé
+        tests:
+          - not_null
+      - name: valeur_depart
+        description: Valeur de départ de l'année en question
+        tests:
+          - not_null
+    config:
+      tags:
+        - pevr
+      schema: dashboard_pevr_seeds
+      column_types:
+        objectif: nvarchar(max)
+        id_indicateur: nvarchar(max)
+        annee_scolaire: nvarchar(max)
+        cible: float
+        valeur_depart: decimal(5,3)

@@ -23,6 +23,27 @@ models:
             - id_indicateur_cdpvd
             - id_indicateur_css
 
+  - name: pevr_dim_previsionnelle
+    description: >
+      Table de dimension qui mappe les données prévisionnelles.
+      La table est constuite en unionant la dimension commune (core/seeds/pevr/cibles_indicateurs_annuelles_pevr_cdpvd.csv) et la dimension personalisée (cssss/seeds/pevr/custom_cibles_indicateurs_annuelles_pevr_cdpvd.csv).
+    columns:
+      - name: objectif
+        description: L'objectif de l'indicateur, en référence au PEVR
+      - name: id_indicateur
+        description: Un indicateur unique de l'indicateur
+      - name: annee_scolaire
+        description: L'année scolaire
+      - name: cible
+        description: La cible qu'on veut atteindre (%)
+      - name: valeur_depart
+        description: La valeur de départ de l'année en question
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur
+            - annee_scolaire
+
   - name: pevr_filtres
     description: >
         Table qui contient les combinaisons possibles des filtres pour la liaison des tables de données par rapport à la table de filtre.
