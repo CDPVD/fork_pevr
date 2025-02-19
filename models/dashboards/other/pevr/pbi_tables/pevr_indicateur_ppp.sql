@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 with
     src as (
         select
-            '6' as id_indicateur,
+            '11' as id_indicateur,
             sch.annee_scolaire,
             sch.annee,
             case
@@ -136,6 +136,7 @@ with
                 dbt_utils.generate_surrogate_key(
                     [
                         "ecole",
+                        "annee_scolaire",
                         "plan_interv_ehdaa",
                         "genre",
                         "population",

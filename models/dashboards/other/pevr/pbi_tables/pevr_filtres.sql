@@ -168,9 +168,15 @@ with
                 select distinct 'Tout' as distribution, eco, 'Tout' as population
                 from eco
             ) as tab
+    ),
+	annee_sco as (
+	select distinct annee_scolaire from {{ ref("pevr_dim_cibles_annuelles") }} 
+    union
+    select  '2022 - 2023' as annee_scolaire
     )
 select
     eco.ecole,
+    annee_sco.annee_scolaire,
     ehdaa.plan_interv_ehdaa,
     genre.genre,
     pop.population,
@@ -180,6 +186,7 @@ select
         dbt_utils.generate_surrogate_key(
             [
                 "ecole",
+                "annee_scolaire",
                 "plan_interv_ehdaa",
                 "genre",
                 "pop.population",
@@ -194,6 +201,7 @@ cross join genre
 cross join pop
 cross join class
 cross join distr
+cross join annee_sco
 where
     ehdaa.eco = eco.eco
     and pop.eco = eco.eco
