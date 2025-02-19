@@ -133,6 +133,7 @@ with
                 dbt_utils.generate_surrogate_key(
                     [
                         "ecole",
+                        "annee_scolaire",
                         "plan_interv_ehdaa",
                         "genre",
                         "population",
