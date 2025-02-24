@@ -129,7 +129,7 @@ with
             id.nb_resultat,
             id.taux_maitrise,  -- Possibilité d'avoir un null à cause du res_etape_num peut être nulle. A voir.
             id.ecart_cible,  -- Même affaire.
-            id.cible,
+            cib.cible,
             {{
                 dbt_utils.generate_surrogate_key(
                     [

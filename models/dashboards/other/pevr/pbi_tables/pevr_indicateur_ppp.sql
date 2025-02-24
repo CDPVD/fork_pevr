@@ -132,7 +132,7 @@ with
             nb_ppp,
             taux_ppp,
             ecart_cible,
-            id.cible,
+            cib.cible,
             {{
                 dbt_utils.generate_surrogate_key(
                     [

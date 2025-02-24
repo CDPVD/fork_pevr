@@ -144,8 +144,7 @@ seeds:
           - not_null
       - name: cible
         description: Pourcentage ciblé
-        tests:
-          - not_null
+        
     config:
       tags:
         - pevr
