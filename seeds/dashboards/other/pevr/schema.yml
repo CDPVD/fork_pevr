@@ -69,11 +69,17 @@ seeds:
         code_matiere: nvarchar(max)
         no_competence: nvarchar(max)
 
-  - name: indicateur_pevr_charl
+  - name: indicateurs_pevr_charl
     description: mapping obligatoire des données tirées de charlemagne.
     columns:
-      - name: id_indicateur_cdpvd
+      - name: objectif
+        description: L'objectif de l'indicateur, en référence au PEVR
+      - name: id_indicateur
         description: L'identification unique du PEVR
+        tests:
+          - not_null
+      - name: description
+        description: Description de l'indicateur
         tests:
           - not_null
       - name: annee_scolaire
@@ -82,8 +88,6 @@ seeds:
           - not_null
       - name: taux
         description: Le pourcentage lié à l'indicateur et l'année scolaire
-        tests:
-          - not_null
       - name: cible
         description: Pourcentage ciblé
         tests:
@@ -93,9 +97,11 @@ seeds:
         - pevr
       schema: dashboard_pevr_seeds
       column_types:
+        objectif: nvarchar(max)
         id_indicateur: nvarchar(max)
+        description: nvarchar(max)
         annee_scolaire: nvarchar(max)
-        taux: decimal(5,3)
+        taux: float
         cible: float
 
   - name: cibles_indicateurs_annuelles_pevr_cdpvd
@@ -144,7 +150,6 @@ seeds:
           - not_null
       - name: cible
         description: Pourcentage ciblé
-        
     config:
       tags:
         - pevr
