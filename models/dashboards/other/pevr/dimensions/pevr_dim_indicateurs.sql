@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     The code check for the custom table existence and adds it to the default table
     For the CUSTOM table to be detected, the table must be :
-        * named 'custom_indicateurs_pevr_cdpvd'
+        * named 'custom_indicateurs_pevr'
         * located in the schema 'dashboard_pevr_seeds'
 #}
 {{ config(alias="dim_indicateurs_pevr") }}
