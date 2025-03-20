@@ -29,7 +29,7 @@ with val_depart as (
             when taux is null then concat('(',cast(cible *100 as decimal (5,1)),'%)')
             else concat(cast(taux *100 as decimal (5,1)), '% (',cast(cible *100 as decimal (5,1)),'%)') end as taux_cible
     from  {{ ref("pevr_dim_indicateur_charl") }} cib 
-    left join  {{ ref("pevr_dim_indicateurs") }}  as ind
+    left join  {{ ref("pevr_dim_indicateurs") }} as ind
         on ind.id_indicateur_meq = cib.id_indicateur_meq
 )
 select
