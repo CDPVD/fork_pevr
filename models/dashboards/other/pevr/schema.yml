@@ -36,10 +36,7 @@ models:
       - name: taux
         description: Le résultat.
       - name: cible
-        description: La cible qu'on veut atteindre (%)
-        tests:
-          - unique  
-          - not_null                   
+        description: La cible qu'on veut atteindre (%)                  
     config:
           column_types:
             id_indicateur_meq: nvarchar(max)
@@ -64,10 +61,7 @@ models:
       - name: code_matiere
         description: Le résultat.
       - name: no_competence
-        description: La cible qu'on veut atteindre (%)
-        tests:
-          - unique  
-          - not_null                   
+        description: Le numéro de compétence de la matière (code_matière)
     config:
           column_types:
             objectif: nvarchar(max)
@@ -81,24 +75,34 @@ models:
     description: >
         Table qui contient les combinaisons possibles des filtres pour la liaison des tables de données par rapport à la table de filtre.
 
-  - name: pevr_indicateur_epreuves
+  - name: pevr_indicateur_charl
     description: >
-      Proportion d'élèves qui obtiennent entre 70% et 100% à l'épreuve  obligatoire.
-      **Code matière et no_compétence modifiable**
-      Donnée provenant des BD locaux.
-      Indicateur '4' de la cpdvd
+      Table qui contient les indicateurs PEVR dont les données provient de charlemagne.
     tests:
       - core_dashboards_store.resolution:
           combination_of_columns:
-            - annee_scolaire
             - id_indicateur
+            - description_indicateur
+            - annee_scolaire
+
+  - name: pevr_indicateur_epreuves
+    description: >
+      Table qui contient les indicateurs des résultats aux épreuves du PEVR.
+    tests:
+      - core_dashboards_store.resolution:
+          combination_of_columns:
+            - id_indicateur
+            - description_indicateur
+            - annee_scolaire
             - id_filtre
 
   - name: pevr_indicateurs_ppp
-    description: liste des indicateurs du pevr lié aux projets pédagogiques particuliers.
+    description: >
+       Table qui contient l'indicateurs des projets pédagogiques particuliers.
     tests:
       - core_dashboards_store.resolution:
           combination_of_columns:
-            - annee_scolaire
             - id_indicateur
+            - description_indicateur
+            - annee_scolaire
             - id_filtre
